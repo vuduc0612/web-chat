@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /build
-#
+# docker
 docker-compose.yml
 /docker-data
 # Logs

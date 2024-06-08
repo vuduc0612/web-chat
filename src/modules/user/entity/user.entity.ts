@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ConversationParticipant } from "@/modules/conversation-participant/entity/conversation-participant.entity";
+import { Conversation } from "@/modules/conversation/entity/conversation.entity";
+import { Message } from "@/modules/message/entity/message.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -35,6 +38,15 @@ export class User {
     @Column({ nullable: true })
     confirmationCode: string;
 
+    @OneToMany(() => Conversation, conversation => conversation.user)
+    conversations: Conversation[];
+
+    @OneToMany(() => Message, message => message.user)
+    messages: Message[];
+
+    @OneToMany(() => ConversationParticipant, conversationParticipant => conversationParticipant.user)
+    conversationParticipants: ConversationParticipant[];
+    
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);
     }
